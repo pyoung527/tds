@@ -18,101 +18,62 @@ V1 scope:
 
 ## Key Files
 
-- `TDS.md` - current high-level product definition.
-- `AGENTS.md` - repo agent skill setup.
-- `docs/agents/` - local tracker/domain setup for Matt Pocock skills.
-- `.scratch/design-system/PRD.md` - current PRD.
+- `README.md` - repo usage, golden example, and next steps.
+- `TDS.md` - high-level product definition.
+- `AGENTS.md` - repo agent setup.
+- `docs/tds/` - repo-level canonical TDS input docs.
+- `skills/tds/` - self-contained reusable TDS skill mirror copied from `docs/tds/`.
+- `tds-output/` - golden Launch List docs/spec output, not canonical input.
 - `.scratch/design-system/issues/` - local markdown issues.
-- `docs/tds/service-brief-contract.md` - canonical service brief input contract.
-- `docs/tds/service-brief-template.md` - blank service brief template.
-- `docs/tds/examples/simple-service-brief.md` - filled Launch List example.
-- `skills/tds/` - scaffolded reusable TDS skill.
+
+## Source of Truth
+
+`docs/tds/` is authoritative for repo input contracts/templates/examples. `skills/tds/` is the portable skill-bundle mirror for agents. `tds-output/` is only the golden generated output. Any future edits should update canonical docs first and then sync the skill mirror.
 
 ## Completed Work
 
-1. Set up repo-local agent skill config:
-   - `AGENTS.md`
-   - `docs/agents/issue-tracker.md`
-   - `docs/agents/triage-labels.md`
-   - `docs/agents/domain.md`
-
-2. Created and refined the PRD:
-   - `.scratch/design-system/PRD.md`
-   - Status: `needs-triage`
-
-3. Created local markdown implementation issues:
-   - Issues live under `.scratch/design-system/issues/`
-
-4. Completed Issue 1:
-   - `.scratch/design-system/issues/01-define-tds-input-contract.md`
-   - Status: `ready-for-human`
-   - Outputs:
-     - `docs/tds/service-brief-contract.md`
-     - `docs/tds/service-brief-template.md`
-     - `docs/tds/examples/simple-service-brief.md`
-
-5. Completed Issue 10:
-   - `.scratch/design-system/issues/10-scaffold-tds-skill.md`
-   - Status: `ready-for-human`
-   - Outputs:
-     - `skills/tds/SKILL.md`
-     - `skills/tds/service-brief-template.md`
-     - `skills/tds/examples/simple-service-brief.md`
-     - `skills/tds/output-conventions.md`
-     - `skills/tds/service-brief-contract.md`
+1. Repo-local agent config exists under `AGENTS.md` and `docs/agents/`.
+2. TDS PRD exists at `.scratch/design-system/PRD.md`.
+3. Issue 1 input contract outputs exist under `docs/tds/`.
+4. Issue 10 skill scaffold outputs exist under `skills/tds/`.
+5. Docs-only hardening / Issue 2 golden output completed:
+   - `README.md`
+   - `tds-output/PRD.md`
+   - `tds-output/ERD.md`
+   - `tds-output/API.md`
+   - `tds-output/PAGES.md`
+   - `tds-output/DESIGN.md`
+   - `tds-output/ARCHITECTURE.md`
+   - `tds-output/IMPLEMENTATION.md`
+   - `tds-output/QUESTIONS.md`
 
 ## Current Issue List
 
 - `01-define-tds-input-contract.md` - ready-for-human, completed draft.
-- `02-generate-one-build-ready-service-spec.md` - next recommended work.
+- `02-generate-one-build-ready-service-spec.md` - ready-for-human, golden docs/spec output created.
 - `03-generate-erd-and-database-docs.md`
 - `04-generate-backend-api-structure.md`
 - `05-generate-page-storyboard-and-user-flow-docs.md`
 - `06-generate-design-md.md`
 - `07-generate-assumptions-questions-and-implementation-plan.md`
-- `08-add-full-pipeline-regression-test.md`
+- `08-add-full-pipeline-regression-test.md` - next recommended work if deterministic test/helper code is approved.
 - `09-generate-prd-and-architecture-notes.md`
 - `10-scaffold-tds-skill.md` - ready-for-human, completed draft.
-- `11-publish-skill-through-github-npx.md` - final distribution target.
+- `11-publish-skill-through-github-npx.md` - final distribution target, not implemented yet.
 
-## Recommended Next Step
+## Recommended Next Issue
 
-Start Issue 2:
+Start Issue 8 only after approval for helper/test implementation:
 
-`.scratch/design-system/issues/02-generate-one-build-ready-service-spec.md`
+`.scratch/design-system/issues/08-add-full-pipeline-regression-test.md`
 
-Goal: prove the skill works by running the example service brief through the TDS workflow and generating one complete `tds-output/` docs/spec bundle.
-
-Expected output folder:
-
-```text
-tds-output/
-  PRD.md
-  ERD.md
-  API.md
-  PAGES.md
-  DESIGN.md
-  ARCHITECTURE.md
-  IMPLEMENTATION.md
-  QUESTIONS.md
-```
-
-Use this input:
-
-`skills/tds/examples/simple-service-brief.md`
-
-Important rule: keep generated content as docs/specs only. Do not create production service code or scaffold an app.
+If Young wants to stay docs-only, refine Issue 11 into a packaging PRD for future GitHub/`npx` distribution.
 
 ## Open Product Decisions
 
 - Exact public package name for `npx`.
 - GitHub repo name and owner.
-- Whether `npx` should install the skill into a repo, initialize a service brief, or both.
-- Whether the skill folder should be copied into `.agents/skills/tds`, `.codex/skills/tds`, or a user-selected location.
-- Whether generated docs should default to `tds-output/` or a project-specific docs folder.
-
-## Suggested Next Prompt
-
-```text
-Continue from HANDOFF.md and start Issue 2.
-```
+- Whether `npx` installs the skill, initializes a service brief, or both.
+- Whether copied skill target is `.agents/skills/tds`, `.codex/skills/tds`, `.hermes/skills/tds`, or user-selected.
+- Whether generated docs default to `tds-output/` or project-specific docs folder.
+- Whether to add deterministic helper scripts/tests now or keep TDS as docs/skill artifacts only.

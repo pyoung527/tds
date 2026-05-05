@@ -2,7 +2,7 @@
 
 ## Summary
 
-<What is this service? One or two short paragraphs are enough.>
+<What is this service?>
 
 ## Why
 
@@ -28,7 +28,7 @@
 
 ## Unknowns
 
-- <missing decision, question, or uncertain area>
+- <missing decision, question, contradiction, or uncertain area>
 
 ## User Flows
 

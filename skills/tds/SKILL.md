@@ -1,45 +1,34 @@
 ---
 name: tds
-description: Generate service-development docs/specs from a markdown service brief. Use when the user wants to turn a service idea, PRD, storyboard, pages, entities, or service brief into build-ready specs such as PRD, ERD, API, design, architecture, implementation plan, assumptions, and open questions.
+description: Use when turning a service idea, PRD, storyboard, page list, entity list, or markdown service brief into build-ready docs/specs. TDS generates PRD, ERD, API, pages/flows, DESIGN.md, architecture notes, implementation plan, assumptions, and open questions while explicitly avoiding production code or app scaffolding in v1.
+version: 0.1.0
+author: pyoung527 + Young's Hermes team
+license: local
+metadata:
+  hermes:
+    tags: [product-planning, prd, architecture, design-system, specs, bmad]
+    related_skills: []
 ---
 
-# TDS
+# TDS — The Design System
 
-TDS turns a `service-brief.md` into service-development docs/specs. It is docs/spec generation only in v1: do not generate production code and do not scaffold a service codebase.
+## Overview
 
-## Quick Start
+TDS is a reusable service-specification skill. It takes a markdown service brief or equivalent product notes and turns them into a coherent docs/spec bundle for review before implementation.
 
-1. Find or create a service brief using `service-brief-template.md`.
-2. Read the whole brief before generating anything.
-3. Normalize the brief into a service model:
-   - service name
-   - summary and purpose
-   - users / actors
-   - core functions
-   - pages / screens
-   - user flows
-   - entities
-   - business rules
-   - integrations
-   - auth / permissions
-   - constraints
-   - non-functional requirements
-   - success metrics
-   - risks
-   - facts, assumptions, and open questions
-4. Generate docs/specs into a dedicated output folder.
-5. Keep generated docs internally consistent. Use the same entity, page, actor, and workflow names across every artifact.
+V1 is docs/spec generation only. Do not generate production service code. Do not scaffold an application. The output should help a human or development agent decide what to build next, with facts, assumptions, and open questions separated clearly.
 
-## Input Rules
+## When to Use
 
-Treat the service brief as the source of user-provided facts.
+Use TDS when the user asks to turn a service idea, PRD, storyboard, page list, entity list, or rough product notes into PRD, ERD, API, UX/page plan, DESIGN.md, architecture notes, implementation plan, assumptions, and questions.
 
-- If the brief says `TBD`, `unknown`, `not sure`, or asks a question, record it as an open question.
-- If the brief contradicts itself, keep both sides visible and add an open question.
-- If you infer something useful, label it as an assumption.
-- Do not silently convert uncertainty into requirements.
+Do not use TDS for production code, app scaffolds, migrations, deployments, or replacing human approval.
 
-Required brief sections:
+## Inputs
+
+Accept any mix of service brief markdown, PRD, basic/core functions, purpose, storyboard, pages/screens, entities, business rules, integrations, constraints, risks, and unknowns. When a service brief exists, read it fully before generating anything.
+
+## Required Service Brief Sections
 
 - `Summary`
 - `Why`
@@ -49,47 +38,79 @@ Required brief sections:
 - `Entities`
 - `Unknowns`
 
-Optional brief sections:
+Optional but useful: `User Flows`, `Business Rules`, `Integrations`, `Auth / Permissions`, `Constraints`, `Non-Functional Requirements`, `Success Metrics`, `Risks`, `Notes`.
 
-- `User Flows`
-- `Business Rules`
-- `Integrations`
-- `Auth / Permissions`
-- `Constraints`
-- `Non-Functional Requirements`
-- `Success Metrics`
-- `Risks`
-- `Notes`
+## Normalize Before Writing
 
-## Output Artifacts
+Normalize the input into one service model: service name, summary, purpose, users/actors, core functions, pages/screens, user flows, entities, relationships, business rules, integrations, auth, constraints, NFRs, success metrics, risks, facts, assumptions, and open questions. Use the same names across every artifact.
 
-Generate these files unless the user asks for a smaller set:
+## Fact / Assumption / Unknown Rules
 
-- `PRD.md`
-- `ERD.md`
-- `API.md`
-- `PAGES.md`
-- `DESIGN.md`
-- `ARCHITECTURE.md`
-- `IMPLEMENTATION.md`
-- `QUESTIONS.md`
+- Treat the brief as source of facts.
+- `TBD`, `unknown`, `not sure`, and questions become open questions.
+- Contradictions stay visible and become open questions.
+- Useful inferences must be labeled assumptions.
+- Do not silently convert uncertainty into requirements.
 
-Use `tds-output/` by default when no output location is specified. If that folder already exists, ask before overwriting or write to a timestamped/suffixed folder.
+## Default Output Bundle
 
-## Artifact Guidance
+```text
+tds-output/
+  PRD.md
+  ERD.md
+  API.md
+  PAGES.md
+  DESIGN.md
+  ARCHITECTURE.md
+  IMPLEMENTATION.md
+  QUESTIONS.md
+```
 
-- `PRD.md`: product purpose, users, core functions, requirements, constraints, and success metrics.
-- `ERD.md`: entities, key fields, relationships, ownership, and persistence assumptions.
-- `API.md`: resources/actions, request expectations, response expectations, validation, errors, auth, and integration assumptions.
-- `PAGES.md`: pages/screens, navigation, user flows, and important loading/empty/success/error states.
-- `DESIGN.md`: service-appropriate design direction, repeated UI patterns, interaction states, and accessibility notes.
-- `ARCHITECTURE.md`: technical boundaries, integrations, data ownership, auth assumptions, deployment assumptions, risks, and decisions to revisit.
-- `IMPLEMENTATION.md`: suggested implementation slices, dependencies, and review checkpoints.
-- `QUESTIONS.md`: open questions, contradictions, missing decisions, and inferred assumptions.
+Use `tds-output/` by default. If it exists and overwrite is not approved, ask or use a safe suffixed folder.
 
-## References
+## Artifact Responsibilities
 
-- See `service-brief-template.md` for the blank input format.
-- See `examples/simple-service-brief.md` for a filled example.
-- See `output-conventions.md` for output folder and file conventions.
-- See `service-brief-contract.md` for detailed input semantics.
+- `PRD.md`: purpose, users, requirements, non-goals, constraints, metrics, risks.
+- `ERD.md`: entities, fields, relationships, ownership, enums, persistence assumptions.
+- `API.md`: resources/actions, auth, validation, errors, integration assumptions.
+- `PAGES.md`: page inventory, navigation, flows, page data needs, states.
+- `DESIGN.md`: visual/UX direction, components, states, accessibility, responsiveness.
+- `ARCHITECTURE.md`: boundaries, modules, data ownership, integrations, auth, deployment assumptions, risks.
+- `IMPLEMENTATION.md`: vertical slices, dependencies, checkpoints, testing/review expectations, approval gate.
+- `QUESTIONS.md`: open questions, contradictions, assumptions requiring review.
+
+## BMAD Approval Gate
+
+After docs/specs, stop. Ask for approval before implementation. Never push, open PRs, deploy, run destructive commands, or execute remote side effects without explicit approval.
+
+## Supporting Files
+
+- `service-brief-template.md`
+- `service-brief-contract.md`
+- `output-conventions.md`
+- `examples/simple-service-brief.md`
+
+## Source-of-Truth Convention
+
+When hardening or publishing a TDS repo, avoid path drift:
+- `docs/tds/` is the repo-level canonical documentation/source material.
+- `skills/tds/` is the portable skill bundle mirrored from that canonical material for agents to copy/load.
+- `tds-output/` is a golden example output, not canonical input.
+If both `docs/tds/*` and `skills/tds/*` exist, state which is authoritative in README/HANDOFF and keep mirrors synchronized.
+
+## Common Pitfalls
+
+1. Generating app code; TDS v1 only generates docs/specs.
+2. Treating assumptions as facts.
+3. Using inconsistent names across artifacts.
+4. Skipping open questions.
+5. Producing generic docs not tied to the brief.
+
+## Verification Checklist
+
+- [ ] Brief was read fully.
+- [ ] Required artifacts exist.
+- [ ] Each artifact has source/generator/scope header.
+- [ ] Entity/page/actor names are consistent.
+- [ ] Facts, assumptions, questions are separated.
+- [ ] No production code or app scaffold was generated.
